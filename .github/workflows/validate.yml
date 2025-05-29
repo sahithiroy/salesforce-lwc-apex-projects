@@ -16,3 +16,4 @@ jobs:
         with:
           SFDX_AUTH_URL: force://PlatformCLI::5Aep861njAMw_1t53uBO1we.9OJpvHW8T0aRMJpVfv2dqoxgYPNosfFO5VMaGbFGjqgCJB2jj6YqdWtAuJSD5Ld@zyroneenergy-dev-ed.develop.my.salesforce.com
           DRY_RUN: true
+          TEST_LEVEL: NoTestRun
