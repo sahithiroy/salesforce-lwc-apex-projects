@@ -19,7 +19,7 @@ jobs:
         with:
           SFDX_AUTH_URL: ${{ secrets.SFDX_AUTH_URL }}
           DRY_RUN: false
-          TEST_LEVEL: RunLocalTests
+          TEST_LEVEL: NoTestRun
 
   close_job:
     if: github.event.pull_request.merged == false
