@@ -13,10 +13,10 @@ public with sharing class ExampleDeploy {
         System.debug(results);
 
     }
-    public static List<Account> run() {
+    public static List<Contact> run() {
     
 
-        return [SELECT ID,Name FROM Account limit 5];
+        return [SELECT ID,LastName FROM Contact limit 5];
     }
 
 }
