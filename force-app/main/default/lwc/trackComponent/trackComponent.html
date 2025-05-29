@@ -1,0 +1,10 @@
+<template>
+    <lightning-card title="Fruits-list">
+        <ul>
+            <template for:each={fruits} for:item="fruit">
+                <li key={fruit}>{fruit}</li>
+            </template>
+        </ul>
+        <lightning-button label="Add" onclick={handleAdd}></lightning-button>
+    </lightning-card>
+</template>

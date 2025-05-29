@@ -1,0 +1,18 @@
+<!-- searchRecords.html -->
+<template>
+    <lightning-card title="Search Records">
+        <div class="slds-p-around_medium">
+            <lightning-input label="Search" value={searchKey} onchange={handleSearch}></lightning-input>
+            
+            <template if:true={searchResults.length}>
+                <ul class="slds-box slds-box_xx-small slds-m-top_small">
+                    <template for:each={searchResults} for:item="item">
+                        <li key={item.id}>
+                            {item.name} ({item.type})
+                        </li>
+                    </template>
+                </ul>
+            </template>
+        </div>
+    </lightning-card>
+</template>

@@ -1,0 +1,15 @@
+<template>
+    <div class="slds-box slds-theme_default slds-text-align_center slds-m-around_medium">
+        
+        <template if:true={authCode}>
+            <h1 class="slds-text-heading_medium">Authentication Successful</h1>
+            <p>Your authorization code:</p>
+            <p><strong>{authCode}</strong></p>
+        </template>
+
+        <template if:true={error}>
+            <h1 class="slds-text-heading_medium slds-text-color_error">Authentication Failed</h1>
+            <p>{error}</p>
+        </template>
+    </div>
+</template>

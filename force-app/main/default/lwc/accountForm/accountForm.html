@@ -1,0 +1,12 @@
+<template>
+    <lightning-card title="Create Account" icon-name="standard:account">
+        <div class="slds-p-around_medium">
+            <lightning-record-form
+                object-api-name={objectApiName}
+                fields={fields}
+                onsuccess={handleSuccess}
+                mode="edit">
+            </lightning-record-form>
+        </div>
+    </lightning-card>
+</template>

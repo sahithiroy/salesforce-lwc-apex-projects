@@ -1,0 +1,15 @@
+<template>
+    <lightning-card title="Simple Calculator">
+        <lightning-input label="a" value={a} onchange={handleChange}></lightning-input>
+        <lightning-input label="b" value={b} onchange={handleChange}></lightning-input>
+
+        <lightning-button label="Add" onclick={add}></lightning-button>
+        <lightning-button label="Subtract" onclick={subtract}></lightning-button>
+        <lightning-button label="Multiplication" onclick={mul}></lightning-button>
+        <lightning-button label="Division" onclick={div}></lightning-button>
+
+        <template if:true={result}>
+            <p><strong>Result:</strong> {result}</p>
+        </template>
+    </lightning-card>
+</template>

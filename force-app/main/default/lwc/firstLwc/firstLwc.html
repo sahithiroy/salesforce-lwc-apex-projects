@@ -1,0 +1,25 @@
+<template>
+    <template if:true={display}>
+        <div class="display">
+            <div>Name: {name}</div>
+            <div>Company: {company}</div>
+            <lightning-badge label={designation}>Designation</lightning-badge>
+            <!--<div>Designation: {designation}</div>-->
+            <div>Salary: {salary}</div>
+        </div>
+    </template>
+
+    <template if:false={display}>
+        <div id="waiting">Loading…</div>
+    </template>
+
+
+    <div class="slds-grid">
+        <div class="slds-col slds-size_1-of-1">
+            <lightning-formatted-text value={name} class="slds-heading-text-large"></lightning-formatted-text>
+        </div>
+        <div class="slds-col slds-size_1-of-1">
+            <lightning-formatted-text value={Phone} class="slds-heading-text-large"></lightning-formatted-text>
+        </div>
+    </div>
+</template>

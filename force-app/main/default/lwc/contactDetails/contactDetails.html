@@ -1,0 +1,25 @@
+<template>
+    <lightning-combobox
+        name="contacts"
+        label="Select a Contact"
+        value={selectedContactId}
+        options={contactOptions}
+        onchange={handleChange}>
+    </lightning-combobox>
+    
+    <lightning-card title="Contact Details for the Particular Account">
+       
+    <template if:true={contact.data}>
+        <div style="text-align:center">
+        
+        <p><strong>Name:</strong> {contact.data.fields.Name.value}</p>
+        <p><strong>Email:</strong> {contact.data.fields.Email.value}</p>
+        <p><strong>Phone:</strong> {contact.data.fields.Phone.value}</p>
+        
+    </div>
+    </template>
+</lightning-card>
+<lightning-datatable key-field="Id" data={contact.data}>
+
+</lightning-datatable>
+</template>

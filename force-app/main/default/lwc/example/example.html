@@ -1,0 +1,36 @@
+<template>
+    <lightning-card>
+        <lightning-input type="text" label="Name" placeholder="name" value="Sahithi" minlength="3" maxlength="20" onchange={handleChange}></lightning-input>
+        <lightning-button label="submit" onclick={submit} variant="success"></lightning-button>
+        <p>{name}</p>
+    </lightning-card>
+    <lightning-card>
+        <lightning-record-form object-api-name="Account"  record-id="001dL00000xfUD8QAM" fields={fields}>Record Form</lightning-record-form>
+    </lightning-card>
+    <lightning-card>
+    <lightning-record-edit-form  object-api-name="Account"  record-id="001dL00000xfUD8QAM" fields={fields}>>Record Edit Form
+    <div>
+        <lightning-input-field field-name="Name"></lightning-input-field>
+    </div>
+    <div >
+        <lightning-button type="submit" label="Submit" variant="neutral"></lightning-button>
+        <lightning-button label="Cancel" variant="neutral" onclick={handleCancel1}></lightning-button>
+    </div>
+    </lightning-record-edit-form>
+</lightning-card>
+    
+  <lightning-card>
+    <lightning-record-view-form object-api-name="Account"  record-id="001dL00000xfUD8QAM">
+            <lightning-output-field field-name="Name"> </lightning-output-field>
+    </lightning-record-view-form>
+  </lightning-card>
+  <template if:true={record.data}>
+    <h3> wire Property</h3>
+    <p>Type: {record.data.fields.Type.value}</p>
+</template>
+<p> Type:{accounttype}</p>
+<template if:true={accounttype}>
+    <h3>Wire function</h3>
+    <p> Type:{accounttype}</p>
+</template>
+</template>

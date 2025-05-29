@@ -1,0 +1,20 @@
+<template>
+    <div style="border: 1px solid blue; padding: 1rem; margin-bottom: 1rem;">
+        <p><strong>Parent Component</strong></p>
+    </div>
+
+    <div>
+        <lightning-combobox
+            name="Accounts"
+            label="Select an Account"
+            value={selectedAccountId}
+            options={accountOptions}
+            onchange={handleChange}>
+        </lightning-combobox>
+
+        <!-- Pass selectedAccountId to child component -->
+        <c-contact-details record-id={selectedAccountId}></c-contact-details>
+
+        
+    </div>
+</template>

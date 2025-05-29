@@ -1,0 +1,58 @@
+<template>
+    <lightning-card title="Account Record Viewer" icon-name="standard:account">
+        <template if:true={isEditMode}>
+           
+            <lightning-record-edit-form
+                object-api-name="Account"
+                record-id={recordId}
+                onsuccess={handleSuccess}
+                oncancel={handleCancel}>
+ 
+                <div>
+                    <lightning-input-field field-name="Name"></lightning-input-field>
+                    <lightning-input-field field-name="AnnualRevenue"></lightning-input-field>
+                    <lightning-input-field field-name="Industry"></lightning-input-field>
+                    <lightning-input-field field-name="Rating"></lightning-input-field>
+                    <lightning-input-field field-name="Phone"></lightning-input-field>
+                    <lightning-input-field field-name="BillingAddress"></lightning-input-field>
+                    <lightning-input-field field-name="Country_Name__c"></lightning-input-field>
+                    <lightning-input-field field-name="States__c"></lightning-input-field>
+                    <lightning-input-field field-name="NumberofLocations__c"></lightning-input-field>
+                    <lightning-input-field field-name="SLASerialNumber__c"></lightning-input-field>
+                    <lightning-input-field field-name="AccountEmail__c"></lightning-input-field>
+                </div>
+ 
+                <div >
+                    <lightning-button type="submit" label="Submit" variant="neutral"></lightning-button>
+                    <lightning-button label="Cancel" variant="neutral" onclick={handleCancel1}></lightning-button>
+                </div>
+            </lightning-record-edit-form>
+        </template>
+ 
+        <template if:false={isEditMode}>
+       
+            <lightning-record-view-form
+                object-api-name="Account"
+                record-id={recordId}>
+                <div class="slds-grid slds-wrap">
+                    <lightning-output-field field-name="Name"></lightning-output-field>
+                    <lightning-output-field field-name="AnnualRevenue"></lightning-output-field>
+                    <lightning-output-field field-name="Industry"></lightning-output-field>
+                    <lightning-output-field field-name="Rating"></lightning-output-field>
+                    <lightning-output-field field-name="Phone"></lightning-output-field>
+                    <lightning-output-field field-name="BillingAddress"></lightning-output-field>
+                    <lightning-output-field field-name="Country_Name__c"></lightning-output-field>
+                    <lightning-output-field field-name="States__c"></lightning-output-field>
+                    <lightning-output-field field-name="NumberofLocations__c"></lightning-output-field>
+                    <lightning-output-field field-name="SLASerialNumber__c"></lightning-output-field>
+                    <lightning-output-field field-name="AccountEmail__c"></lightning-output-field>
+                </div>
+ 
+                <div >
+                    <lightning-button label="Edit"  onclick={handleEdit}></lightning-button>
+                    <lightning-button label="Cancel" variant="neutral" onclick={handleCancel}></lightning-button>
+                </div>
+            </lightning-record-view-form>
+        </template>
+    </lightning-card>
+</template>

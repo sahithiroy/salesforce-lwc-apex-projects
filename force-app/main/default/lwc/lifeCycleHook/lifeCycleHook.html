@@ -1,0 +1,13 @@
+<template>
+    <lightning-card title="Accounts (Lifecycle Example)">
+        <template if:true={isLoading}>
+            <lightning-spinner alternative-text="Loading"></lightning-spinner>
+        </template>
+
+        <template if:false={isLoading}>
+            <template for:each={accounts} for:item="acc">
+                <p key={acc.Id}>{acc.Name}</p>
+            </template>
+        </template>
+    </lightning-card>
+</template>
