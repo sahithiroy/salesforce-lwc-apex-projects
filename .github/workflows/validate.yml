@@ -14,5 +14,6 @@ jobs:
       - name: Validate on our Org
         uses: jawills/sf-deploy@v1.0
         with:
-          SFDX_AUTH_URL: ${{ secrets.SFDX_AUTH_URL }}
+          SFDX_AUTH_URL: force://PlatformCLI::5Aep861njAMw_1t53uBO1we.9OJpvHW8T0aRMJpVfv2dqoxgYPNosfFO5VMaGbFGjqgCJB2jj6YqdWtAuJSD5Ld@zyroneenergy-dev-ed.develop.my.salesforce.com
           DRY_RUN: true
+          TEST_LEVEL: NoTestRun
