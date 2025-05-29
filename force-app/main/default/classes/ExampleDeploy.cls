@@ -13,5 +13,10 @@ public with sharing class ExampleDeploy {
         System.debug(results);
 
     }
+    public static List<Account> run() {
+    
+
+        return [SELECT ID,Name FROM Account limit 5];
+    }
 
 }
