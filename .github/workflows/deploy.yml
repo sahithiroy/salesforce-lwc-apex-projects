@@ -1,6 +1,5 @@
 name: Close Production Pull Request
 
-# only trigger on pull request closed events
 on:
   pull_request:
     types: [closed]
@@ -8,9 +7,9 @@ on:
       - main
     paths:
       - 'force-app/**'
+
 jobs:
   merge_job:
-    # this job will only run if the PR has been merged
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
@@ -18,14 +17,13 @@ jobs:
       - name: Deploy on Org
         uses: jawills/sf-deploy@v1.0
         with:
-          SFDX_AUTH_URL`: ${{ secrets.SFDX_AUTH_URL }}
+          SFDX_AUTH_URL: ${{ secrets.SFDX_AUTH_URL }}
           DRY_RUN: false
           TEST_LEVEL: RunLocalTests
 
   close_job:
-    # this job will only run if the PR has been closed without being merged
     if: github.event.pull_request.merged == false
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo PR #${{ github.event.number }} has been closed without being merge
+          echo "PR #${{ github.event.number }} has been closed without being merged"
