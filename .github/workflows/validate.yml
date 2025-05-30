@@ -20,14 +20,11 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Download and setup PMD
+      - name: Download and run PMD Analysis
         run: |
           curl -L -o pmd.zip https://github.com/pmd/pmd/releases/download/pmd_releases%2F6.55.0/pmd-bin-6.55.0.zip
           unzip pmd.zip
-          echo "$GITHUB_WORKSPACE/pmd-bin-6.55.0/bin" >> $GITHUB_PATH
-
-      - name: Run PMD Analysis
-        run: |
+          export PATH="$PWD/pmd-bin-6.55.0/bin:$PATH"
           mkdir -p reports
           pmd -d force-app/main/default/classes -R apex-ruleset.xml -f html -r reports/pmd-report.html
 
@@ -43,3 +40,4 @@ jobs:
           SFDX_AUTH_URL: ${{ secrets.SFDX_AUTH_URL }}
           DRY_RUN: true
           TEST_LEVEL: NoTestRun
+
