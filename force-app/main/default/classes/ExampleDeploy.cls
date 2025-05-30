@@ -18,10 +18,5 @@ public with sharing class ExampleDeploy {
 
         return [SELECT ID,LastName FROM Contact limit 5];
     }
-     public static List<Contact> method2() {
     
-
-        return [SELECT ID,LastName FROM Contact limit 20];
-    }
-
 }
