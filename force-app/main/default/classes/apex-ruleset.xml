@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="Custom Apex Rules"
+         xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.github.io/pmd-6.55.0/ruleset_2_0_0.xsd"
+         xmlns:apex="http://pmd.sourceforge.net/ruleset/apex">
+    
+    <description>
+        Custom ruleset for Apex code.
+    </description>
+
+    <rule ref="category/apex/bestpractices.xml"/>
+    <rule ref="category/apex/design.xml"/>
+</ruleset>
