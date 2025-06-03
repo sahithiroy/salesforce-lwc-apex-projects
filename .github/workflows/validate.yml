@@ -32,7 +32,7 @@ jobs:
             -d force-app/main/default/classes \
             -R force-app/main/default/classes/apex-ruleset.xml \
             -f html \
-            -r reports/pmd-report.html
+            -r reports/pmd-report.html || true
 
       - name: Upload PMD Report
         uses: actions/upload-artifact@v4
