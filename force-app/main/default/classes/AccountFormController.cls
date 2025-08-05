@@ -1,6 +1,7 @@
 public with sharing class AccountFormController {
     @AuraEnabled
     public static Id createAccount(Account acc) {
+      System.debug('AccountController');
         insert acc;
         return acc.Id;
     }
