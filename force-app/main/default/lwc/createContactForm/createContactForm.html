@@ -1,0 +1,13 @@
+<template>
+    <lightning-card title="Create Contact">
+        <lightning-record-form
+            object-api-name="Contact"
+            fields={fields}
+            onsuccess={handleSuccess}
+            columns="1"
+            mode="edit"
+            record-type-id={recordTypeId}
+            default-field-values={defaultValues}>
+        </lightning-record-form>
+    </lightning-card>
+</template>

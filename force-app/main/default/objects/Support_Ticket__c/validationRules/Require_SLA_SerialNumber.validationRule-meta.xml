@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Require_SLA_SerialNumber</fullName>
+    <active>true</active>
+    <errorConditionFormula>ISBLANK(Customer_Account__r.SLASerialNumber__c)</errorConditionFormula>
+    <errorMessage>A Serial Number is required for this Customer Account before saving the Ticket.</errorMessage>
+</ValidationRule>

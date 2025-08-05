@@ -1,6 +1,234 @@
 <template>
-    <lightning-button label="Go to Page" variant='Brand' onclick={handleOnClick} ></lightning-button>
-    <lightning-record-edit-form>
-        
-    </lightning-record-edit-form>
+    <div class="ops-bridge-designer">
+        <!-- Header -->
+        <div class="slds-page-header slds-page-header_record-home">
+            <div class="slds-page-header__row">
+                <div class="slds-page-header__col-title">
+                    <div class="slds-media">
+                        <div class="slds-media__figure">
+                            <span class="slds-icon_container slds-icon-utility-flow">
+                                <lightning-icon icon-name="utility:flow" alternative-text="OpsBridge" size="large"></lightning-icon>
+                            </span>
+                        </div>
+                        <div class="slds-media__body">
+                            <div class="slds-page-header__name">
+                                <div class="slds-page-header__name-title">
+                                    <h1>
+                                        <span class="slds-page-header__title">OpsBridge Designer</span>
+                                    </h1>
+                                </div>
+                            </div>
+                            <p class="slds-page-header__name-meta">Visual DevOps Workflow Designer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-page-header__col-actions">
+                    <div class="slds-page-header__controls">
+                        <div class="slds-page-header__control">
+                            <lightning-button 
+                                variant="neutral" 
+                                label="Load Template" 
+                                icon-name="utility:download"
+                                onclick={handleOpenTemplateModal}>
+                            </lightning-button>
+                        </div>
+                        <div class="slds-page-header__control">
+                            <lightning-button 
+                                variant="brand" 
+                                label="View Monitor" 
+                                icon-name="utility:monitor_loading"
+                                onclick={handleViewMonitor}>
+                            </lightning-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="slds-grid slds-gutters slds-wrap main-content">
+            <!-- Action Library Sidebar -->
+            <div class="slds-col slds-size_1-of-3">
+                <!-- Workflow Configuration -->
+                <div class="slds-card slds-m-bottom_medium">
+                    <div class="slds-card__header slds-grid">
+                        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                            <div class="slds-media__figure">
+                                <lightning-icon icon-name="utility:settings" size="small"></lightning-icon>
+                            </div>
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title">Workflow Configuration</h2>
+                            </div>
+                        </header>
+                    </div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <div class="slds-form-element slds-m-bottom_small">
+                            <label class="slds-form-element__label" for="workflow-name">Workflow Name</label>
+                            <div class="slds-form-element__control">
+                                <lightning-input 
+                                    type="text" 
+                                    id="workflow-name"
+                                    value={workflowName}
+                                    onchange={handleWorkflowNameChange}
+                                    placeholder="Enter workflow name">
+                                </lightning-input>
+                            </div>
+                        </div>
+
+                        <div class="slds-form-element slds-m-bottom_small">
+                            <label class="slds-form-element__label" for="workflow-description">Description</label>
+                            <div class="slds-form-element__control">
+                                <lightning-textarea 
+                                    id="workflow-description"
+                                    value={workflowDescription}
+                                    onchange={handleDescriptionChange}
+                                    placeholder="Describe this workflow">
+                                </lightning-textarea>
+                            </div>
+                        </div>
+
+                        <div class="slds-form-element slds-m-bottom_small">
+                            <label class="slds-form-element__label" for="trigger-type">Trigger Type</label>
+                            <div class="slds-form-element__control">
+                                <lightning-combobox
+                                    name="triggerType"
+                                    value={selectedTriggerType}
+                                    placeholder="Select trigger type"
+                                    options={triggerTypeOptions}
+                                    onchange={handleTriggerTypeChange}>
+                                </lightning-combobox>
+                            </div>
+                        </div>
+
+                        <template if:true={isGitTrigger}>
+                            <div class="slds-form-element slds-m-bottom_small">
+                                <label class="slds-form-element__label" for="repo-url">Repository URL</label>
+                                <div class="slds-form-element__control">
+                                    <lightning-input 
+                                        type="url" 
+                                        id="repo-url"
+                                        value={repositoryUrl}
+                                        onchange={handleRepoUrlChange}
+                                        placeholder="https://github.com/...">
+                                    </lightning-input>
+                                </div>
+                            </div>
+
+                            <div class="slds-form-element slds-m-bottom_small">
+                                <label class="slds-form-element__label" for="branch-pattern">Branch Pattern</label>
+                                <div class="slds-form-element__control">
+                                    <lightning-input 
+                                        type="text" 
+                                        id="branch-pattern"
+                                        value={branchPattern}
+                                        onchange={handleBranchPatternChange}
+                                        placeholder="feature/*, main">
+                                    </lightning-input>
+                                </div>
+                            </div>
+                        </template>
+
+                        <div class="slds-grid slds-gutters slds-m-top_medium">
+                            <div class="slds-col">
+                                <lightning-button 
+                                    variant="brand" 
+                                    label="Save Workflow" 
+                                    onclick={handleSaveWorkflow}
+                                    class="slds-m-bottom_x-small">
+                                </lightning-button>
+                            </div>
+                        </div>
+
+                        <template if:true={selectedWorkflow}>
+                            <div class="slds-grid slds-gutters">
+                                <div class="slds-col">
+                                    <lightning-button 
+                                        variant="success" 
+                                        label={executeButtonLabel}
+                                        onclick={handleExecuteWorkflow}
+                                        disabled={isExecuting}
+                                        icon-name="utility:play">
+                                    </lightning-button>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- Action Library -->
+                <div class="slds-card">
+                    <div class="slds-card__header slds-grid">
+                        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                            <div class="slds-media__figure">
+                                <lightning-icon icon-name="utility:apps" size="small"></lightning-icon>
+                            </div>
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title">DevOps Action Library</h2>
+                            </div>
+                        </header>
+                    </div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <template for:each={actionCategories} for:item="category">
+                            <div key={category.name} class="action-category slds-m-bottom_medium">
+                                <h3 class="category-title slds-text-heading_small slds-m-bottom_small">
+                                    {category.name}
+                                </h3>
+                                <div class="action-items">
+                                    <template for:each={category.actions} for:item="action">
+                                        <div key={action.id} 
+                                             class="action-item slds-box slds-theme_default"
+                                             data-action-id={action.id}
+                                             draggable="true"
+                                             ondragstart={handleDragStart}
+                                             ondragend={handleDragEnd}>
+                                            <div class="action-content">
+                                                <div class="action-icon" >
+                                                    {action.icon}
+                                                </div>
+                                                <div class="action-details">
+                                                    <div class="action-title">{action.title}</div>
+                                                    <div class="action-description">{action.description}</div>
+                                                    <div class="action-connector">{action.connector}</div>
+                                                </div>
+                                                <div class="drag-indicator">
+                                                    <lightning-icon icon-name="utility:drag_and_drop" size="x-small"></lightning-icon>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                    
+                </div>
+
+                <!-- Saved Workflows -->
+                <template if:true={hasSavedWorkflows}>
+                    <div class="slds-card slds-m-top_medium">
+                        <div class="slds-card__header slds-grid">
+                            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                <div class="slds-media__figure">
+                                    <lightning-icon icon-name="utility:save" size="small"></lightning-icon>
+                                </div>
+                                <div class="slds-media__body">
+                                    <h2 class="slds-card__header-title">Saved Workflows</h2>
+                                </div>
+                            </header>
+                        </div>
+                        <div class="slds-card__body slds-card__body_inner">
+                            <template for:each={savedWorkflows} for:item="workflow">
+                                <div key={workflow.Id} 
+                                     class="saved-workflow-item slds-box slds-m-bottom_x-small"
+                                     data-workflow-id={workflow.Id}
+                                     onclick={handleLoadWorkflow}>
+                                    {workflow.Name}
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
 </template>

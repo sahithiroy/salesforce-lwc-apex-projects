@@ -1,0 +1,20 @@
+<apex:page name="OAuthCallbackPage">
+    <script>
+        (function() {
+            const params = new URLSearchParams(window.location.search);
+            const code = params.get('code');
+            const state = params.get('state'); // recordId is passed as 'state'
+
+            if (code && state) {
+                // Redirect to LWC handler with authCode and recordId
+                const lwcUrl = 'https://zyroneenergy-dev-ed.develop.my.salesforce.com/lightning/cmp/c__authRedirectHandler' +
+                    '?c__authCode=' + encodeURIComponent(code) +
+                    '&c__recordId=' + encodeURIComponent(state);
+
+                window.top.location.href = lwcUrl;
+            } else {
+                document.body.innerHTML = 'OAuth code or recordId (state) not found.';
+            }
+        })();
+    </script>
+</apex:page>

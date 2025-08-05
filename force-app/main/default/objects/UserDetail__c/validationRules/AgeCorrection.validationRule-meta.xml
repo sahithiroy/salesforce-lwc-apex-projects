@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AgeCorrection</fullName>
+    <active>true</active>
+    <errorConditionFormula>FLOOR( ( TODAY() - Birthday__c ) / 365.25 ) &gt; Age__c</errorConditionFormula>
+    <errorDisplayField>Age__c</errorDisplayField>
+    <errorMessage>Give the correct age</errorMessage>
+</ValidationRule>

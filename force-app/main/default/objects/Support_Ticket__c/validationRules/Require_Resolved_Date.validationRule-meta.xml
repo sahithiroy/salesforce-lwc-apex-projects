@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Require_Resolved_Date</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+    OR(
+        ISPICKVAL(Status__c, &quot;Resolved&quot;),
+        ISPICKVAL(Status__c, &quot;Closed&quot;)
+    ),
+    ISBLANK(Resolved_Date__c)
+)</errorConditionFormula>
+    <errorDisplayField>Resolved_Date__c</errorDisplayField>
+    <errorMessage>Resolved Date must be populated when the Status is Resolved or Closed.</errorMessage>
+</ValidationRule>

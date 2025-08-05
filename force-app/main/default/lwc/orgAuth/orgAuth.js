@@ -24,4 +24,3 @@ export default class OrgAuth extends NavigationMixin(LightningElement) {
     }
     
 }
-

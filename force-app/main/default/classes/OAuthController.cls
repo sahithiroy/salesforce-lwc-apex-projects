@@ -1,5 +1,6 @@
 public with sharing class OAuthController {
     //public static Id incomingId;
+    
     @AuraEnabled
 	public static String geturl(Id recordId) {
     	try {
