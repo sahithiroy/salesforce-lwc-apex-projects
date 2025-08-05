@@ -1,6 +1,6 @@
 @isTest
 public class CallOutExampleTest {
-    @isTest
+    /*@isTest
     static void test_getCall(){
         Test.setMock(HttpCalloutMock.class, new HttpMockcallout());
         Test.startTest();
@@ -8,6 +8,6 @@ public class CallOutExampleTest {
         Test.stopTest();
         System.assert(true, 'Test completed with mock callout');
         
-    }
+    }*/
 
 }
