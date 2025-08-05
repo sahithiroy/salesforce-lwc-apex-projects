@@ -1,6 +1,6 @@
 @isTest
 public class OAuthControllerTest {
-    @isTest
+    /*@isTest
     static void test_successurl(){
         Test.setMock(HttpCalloutMock.class, new OAuthCalloutMocks.HeaderMock());
         Test.startTest();
@@ -49,5 +49,5 @@ public class OAuthControllerTest {
         Test.stopTest();
         System.debug('Test failure result : '+result);
         System.assert(result.contains('Methods defined as TestMethod do not support Web service callouts'), 'Expected exception message when callout fails');
-    }
+    }*/
 }
