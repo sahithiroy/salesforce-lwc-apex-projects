@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Only_Characters</fullName>
+    <active>true</active>
+    <errorConditionFormula>NOT(
+    AND(
+        LEN(Name) &lt;= 10,
+        REGEX(Name, &quot;^[a-zA-Z]+$&quot;)
+    )
+)</errorConditionFormula>
+    <errorDisplayField>Name</errorDisplayField>
+    <errorMessage>Org Name must contain only letters and be 10 characters or fewer.</errorMessage>
+</ValidationRule>
