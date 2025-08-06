@@ -33,16 +33,16 @@ jobs:
         run: |
           mkdir -p reports
           sf scanner:run \
-            --format html \
+            --format json \
             --target "force-app/main/default/classes/**/*.cls" \
             --category "Design,Best Practices,Performance" \
-            --outfile reports/scanner-report.html || true
+            --outfile reports/scanner-report.json || true
 
       - name: Upload Salesforce Scanner Report
         uses: actions/upload-artifact@v4
         with:
           name: scanner-report
-          path: reports/scanner-report.html
+          path: reports/scanner-report.json
 
       - name: Download PMD
         run: |
@@ -55,14 +55,14 @@ jobs:
           ./pmd-bin-6.55.0/bin/run.sh pmd \
             -d force-app/main/default/classes \
             -R force-app/main/default/classes/apex-ruleset.xml \
-            -f html \
-            -r reports/pmd-report.html || true
+            -f json \
+            -r reports/pmd-report.json || true
 
       - name: Upload PMD Report
         uses: actions/upload-artifact@v4
         with:
           name: pmd-report
-          path: reports/pmd-report.html
+          path: reports/pmd-report.json
 
   
       - name: Validate on our Org (Dry Run)
