@@ -26,7 +26,11 @@ jobs:
           echo "$CHANGED_FILES"
           
           # Save for later steps
-          echo "files=$CHANGED_FILES" >> $GITHUB_OUTPUT
+          {
+            echo "files<<EOF"
+            echo "$CHANGED_FILES"
+            echo "EOF"
+          } >> $GITHUB_OUTPUT
 
       - name: Setup Java (required for PMD)
         if: steps.changes.outputs.files != ''

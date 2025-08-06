@@ -7,6 +7,10 @@ public static void methodName(){
           System.debug('Examplerunning');
            System.debug('Examplerunning');
             System.debug('Examplerunning');
+             System.debug('Examplerunning');
+             System.debug('Examplerunning');
+              System.debug('Examplerunning');
+               System.debug('Examplerunning');
     } catch (Exception e) {
         throw new AuraHandledException(e.getMessage());
     }
