@@ -19,6 +19,9 @@ public class Task {
             System.debug('size of opencases'+openCases.size());
             if (openCases != null && openCases.size() > 3) {
                 System.debug('Start Email');
+                System.debug('Start Email');
+                System.debug('Start Email');
+                System.debug('Start Email');
                 Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
                 email.setToAddresses(new String[] { con.Email });
                 email.setSubject('Action Required: Open Cases');
