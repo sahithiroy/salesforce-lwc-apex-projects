@@ -72,7 +72,7 @@ jobs:
           unzip -q pmd-bin.zip
           ./pmd-bin-6.55.0/bin/run.sh pmd \
             -d "${{ steps.changes.outputs.files }}" \
-            -R force-app/main/default/classes/apex-ruleset.xml \
+            -R pmd-apex-rules.xml \
             -f json \
             -r reports/pmd-report.json || true
 
