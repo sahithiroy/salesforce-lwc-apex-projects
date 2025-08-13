@@ -14,11 +14,11 @@ on:
       FromCommitId:
         description: 'From commit '
         required: false
-        default: '7b2914ee99b84b89b9740e45b3e062f6dbdc642a'
+        default: '90bf5443ad8baab21a6837eca38cdad06c686a77'
       ToCommitId:
         description: 'To commit '
         required: false
-        default: '259114b5d530f6b7e5ca53a9237c759f5e8fd0f7'
+        default: '03d3536c6cb8944ec97053a08e1bf7af3af5d531'
       Overall:
         description: 'Run PMD on whole branch (true) or only changed files (false)'
         required: true
@@ -31,7 +31,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
-          repository: sahithiroy/DynamicallyGenerateXMLFile
+          repository: sahithiroy/salesforce-lwc-apex-projects
           ref: ${{ github.event.inputs.Branch }}
 
       - name: Determine Target Files
