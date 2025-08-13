@@ -12,11 +12,13 @@ on:
         required: true
         default: 'main'
       FromCommitId:
-        description: 'Starting commit SHA (used if Overall = false)'
+        description: 'Starting commit SHA'
         required: false
+        default: '90bf5443ad8baab21a6837eca38cdad06c686a77'
       ToCommitId:
-        description: 'Ending commit SHA (used if Overall = false)'
+        description: 'Ending commit SHA'
         required: false
+        default: '03d3536c6cb8944ec97053a08e1bf7af3af5d531'
       Overall:
         description: 'Run PMD on whole branch (true) or only changed files (false)'
         required: true
@@ -72,32 +74,16 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Install Salesforce CLI
-        if: steps.changes.outputs.files != ''
-        run: npm install --global @salesforce/cli
-
-      - name: Install Salesforce Scanner Plugin
-        if: steps.changes.outputs.files != ''
-        run: sf plugins install @salesforce/sfdx-scanner
-
-      - name: Run Salesforce Code Analyzer (Scanner)
-        if: steps.changes.outputs.files != ''
-        run: |
-          mkdir -p reports
-          sf scanner:run \
-            --format json \
-            --target "${{ steps.changes.outputs.files }}" \
-            --category "Design,Best Practices,Performance" \
-            --outfile reports/scanner-report.json || true
-
+    
       - name: Run PMD Analysis
         if: steps.changes.outputs.files != ''
         run: |
           mkdir -p reports
           curl -L -o pmd-bin.zip https://github.com/pmd/pmd/releases/download/pmd_releases%2F6.55.0/pmd-bin-6.55.0.zip
           unzip -q pmd-bin.zip
+          FILES=$(echo "${{ steps.changes.outputs.files }}" | tr '\n' ',' | sed 's/,$//')
           ./pmd-bin-6.55.0/bin/run.sh pmd \
-            -d "${{ steps.changes.outputs.files }}" \
+            -d "$FILES" \
             -R pmd-apex-rules.xml \
             -f json \
             -r reports/pmd-report.json || true

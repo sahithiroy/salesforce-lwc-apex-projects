@@ -32,5 +32,39 @@ public class Example {
         System.debug('mklist'+mklist.size());
         System.debug('Succesfully completed  marklist');
     }
-   
+    public static void method4(List<integer>mklist){
+        mklist.add(20);
+        mklist.add(2);
+        mklist.add(20);
+        System.debug('mklist'+mklist.size());
+        System.debug('Succesfully completed  marklist');
+    }
+    public static void method5(List<integer>mklist){
+        mklist.add(20);
+        mklist.add(2);
+        mklist.add(20);
+        System.debug('mklist'+mklist.size());
+        System.debug('Succesfully completed  marklist');
+    }
+     public static void method6(List<integer>mklist){
+        mklist.add(20);
+        mklist.add(2);
+        mklist.add(20);
+        System.debug('mklist'+mklist.size());
+        System.debug('Succesfully completed  marklist');
+    }
+    public static void method7(List<integer>mklist){
+        mklist.add(20);
+        mklist.add(2);
+        mklist.add(20);
+        System.debug('mklist'+mklist.size());
+        System.debug('Succesfully completed  marklist');
+    }
+    public static void method(List<integer>mklist){
+        mklist.add(20);
+        mklist.add(2);
+        mklist.add(20);
+        System.debug('mklist'+mklist.size());
+        System.debug('Succesfully completed  marklist');
+    }
 }
