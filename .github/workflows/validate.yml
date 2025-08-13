@@ -1,11 +1,19 @@
-name: Validate Production Pull Request
+name: UpdatedWorkflow
+run-name: SFDX Lint with GitHub Actions
 
 on:
-  pull_request:
-    branches:
-      - main
-    paths:
-      - 'force-app/**'
+  workflow_dispatch:
+    inputs:
+      OrgName:
+        description: 'The name of the Salesforce organization - OpsbridgeDeployClass'
+        required: true
+      WorkItemTask:
+        description: 'The work item task Id to pass Workflow Run Id'
+        required: true
+      Overall:
+        description: 'Run PMD on whole branch (true) or only changed files (false)'
+        required: true
+        default: 'false'
 
 jobs:
   validate:
@@ -14,21 +22,25 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Get Changed Apex Classes
+      - name: Determine Target Files
         id: changes
         run: |
-          # Get changed files in PR
-          git fetch origin ${{ github.base_ref }} --depth=1
-          CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }} HEAD \
-            | grep '^force-app/.*\.cls$' || true)
-          
-          echo "Changed files:"
-          echo "$CHANGED_FILES"
-          
-          # Save for later steps
+          if [ "${{ github.event.inputs.Overall }}" = "true" ]; then
+            echo "Running PMD on entire branch"
+            TARGET_FILES=$(find force-app -type f -name "*.cls")
+          else
+            echo "Running PMD on changed files"
+            git fetch origin main --depth=1
+            TARGET_FILES=$(git diff --name-only origin/main HEAD \
+              | grep '^force-app/.*\.cls$' || true)
+          fi
+
+          echo "Files to scan:"
+          echo "$TARGET_FILES"
+
           {
             echo "files<<EOF"
-            echo "$CHANGED_FILES"
+            echo "$TARGET_FILES"
             echo "EOF"
           } >> $GITHUB_OUTPUT
 
@@ -47,7 +59,7 @@ jobs:
         if: steps.changes.outputs.files != ''
         run: sf plugins install @salesforce/sfdx-scanner
 
-      - name: Run Salesforce Code Analyzer (Scanner) on Changed Files
+      - name: Run Salesforce Code Analyzer (Scanner)
         if: steps.changes.outputs.files != ''
         run: |
           mkdir -p reports
@@ -64,7 +76,7 @@ jobs:
           name: scanner-report
           path: reports/scanner-report.json
 
-      - name: Run PMD Analysis on Changed Files
+      - name: Run PMD Analysis
         if: steps.changes.outputs.files != ''
         run: |
           mkdir -p reports
@@ -83,6 +95,6 @@ jobs:
           name: pmd-report
           path: reports/pmd-report.json
 
-      - name: Skip Analysis (No Apex Changes)
+      - name: Skip Analysis
         if: steps.changes.outputs.files == ''
-        run: echo "No Apex class changes detected. Skipping SCA & PMD."
+        run: echo "No Apex class changes detected. Skipping analysis."
