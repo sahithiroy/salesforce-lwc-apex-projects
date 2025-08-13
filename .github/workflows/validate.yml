@@ -7,9 +7,6 @@ on:
       OrgName:
         description: 'The name of the Salesforce organization - OpsbridgeDeployClass'
         required: true
-      WorkItemTask:
-        description: 'The work item task Id to pass Workflow Run Id'
-        required: true
       Overall:
         description: 'Run PMD on whole branch (true) or only changed files (false)'
         required: true
@@ -87,14 +84,20 @@ jobs:
             -R pmd-apex-rules.xml \
             -f json \
             -r reports/pmd-report.json || true
+          
+          # Zip PMD JSON report
+          cd reports
+          zip pmd-report.zip pmd-report.json
+          cd ..
 
-      - name: Upload PMD Report JSON
+      - name: Upload PMD Report ZIP
         if: steps.changes.outputs.files != ''
         uses: actions/upload-artifact@v4
         with:
           name: pmd-report
-          path: reports/pmd-report.json
+          path: reports/pmd-report.zip
 
       - name: Skip Analysis
         if: steps.changes.outputs.files == ''
         run: echo "No Apex class changes detected. Skipping analysis."
+

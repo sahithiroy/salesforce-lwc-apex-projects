@@ -11,7 +11,34 @@ public class Example {
         changeValue(x);
         System.debug(x); 
     }
-   
+    public static void method1(){
+        List<Integer>marklist=new List<Integer>();
+        System.debug('before marklist'+marklist.size());
+        method2(marklist);
+        System.debug('after marklist'+marklist.size());
+        System.debug('after marklist'+marklist.size());
+    }
+    public static void method2(List<integer>mklist){
+        mklist.add(20);
+        mklist.add(2);
+        mklist.add(20);
+        System.debug('mklist'+mklist.size());
+        System.debug('Succesfully completed  marklist');
+    }
+    public static void method3(List<integer>mklist){
+        mklist.add(20);
+        mklist.add(2);
+        mklist.add(20);
+        System.debug('mklist'+mklist.size());
+        System.debug('Succesfully completed  marklist');
+    }
+    public static void method4(List<integer>mklist){
+        mklist.add(20);
+        mklist.add(2);
+        mklist.add(20);
+        System.debug('mklist'+mklist.size());
+        System.debug('Succesfully completed  marklist');
+    }
     public static void method5(List<integer>mklist){
         mklist.add(20);
         mklist.add(2);
@@ -33,7 +60,7 @@ public class Example {
         System.debug('mklist'+mklist.size());
         System.debug('Succesfully completed  marklist');
     }
-    public static void method8(List<integer>mklist){
+    public static void method(List<integer>mklist){
         mklist.add(20);
         mklist.add(2);
         mklist.add(20);
