@@ -30,8 +30,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-        with:
-          repository: sahithiroy/salesforce-lwc-apex-projects
+        
          
       - name: Determine Target Files
         id: changes
