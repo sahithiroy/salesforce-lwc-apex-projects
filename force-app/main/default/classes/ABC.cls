@@ -14,7 +14,7 @@ public class ABC {
     public static void mtd2(){
         System.debug('zab--->mtd2'+zab);
     }
-      /* public   String xyz='ABC';
+       public   String xyz='ABC';
        public static  String zab='BCD';
     public ABC( String b){
         xyz=xyz+b;//static elements canot be access in the constructor 
@@ -31,7 +31,7 @@ public class ABC {
     public void mtd3(){
         zab=xyz+zab;
         System.debug(zab);//ABCSAHITHIABCSAHITHIBCD
-    }*/
+    }
 }
 /*
 public class ABC{

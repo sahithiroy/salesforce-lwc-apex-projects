@@ -12,11 +12,11 @@ on:
         required: true
         default: 'main'
       FromCommitId:
-        description: 'Starting commit SHA'
+        description: 'From commit '
         required: false
         default: '90bf5443ad8baab21a6837eca38cdad06c686a77'
       ToCommitId:
-        description: 'Ending commit SHA'
+        description: 'To commit '
         required: false
         default: '03d3536c6cb8944ec97053a08e1bf7af3af5d531'
       Overall:
@@ -32,8 +32,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: sahithiroy/salesforce-lwc-apex-projects
-          ref: ${{ github.event.inputs.Branch }}
-
+         
       - name: Determine Target Files
         id: changes
         run: |
