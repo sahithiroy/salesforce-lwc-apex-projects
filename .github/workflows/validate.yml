@@ -4,9 +4,19 @@ run-name: SFDX Lint with GitHub Actions
 on:
   workflow_dispatch:
     inputs:
-      OrgName:
-        description: 'The name of the Salesforce organization - OpsbridgeDeployClass'
+      Name:
+        description: 'Run name or label'
         required: true
+      Branch:
+        description: 'Branch name to analyze (e.g., main, develop)'
+        required: true
+        default: 'main'
+      FromCommitId:
+        description: 'Starting commit SHA (used if Overall = false)'
+        required: false
+      ToCommitId:
+        description: 'Ending commit SHA (used if Overall = false)'
+        required: false
       Overall:
         description: 'Run PMD on whole branch (true) or only changed files (false)'
         required: true
@@ -18,17 +28,31 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          repository: sahithiroy/salesforce-lwc-apex-projects
+          ref: ${{ github.event.inputs.Branch }}
 
       - name: Determine Target Files
         id: changes
         run: |
+          echo "Run Label: ${{ github.event.inputs.Name }}"
+          echo "Repository: https://github.com/sahithiroy/salesforce-lwc-apex-projects"
+          echo "Branch: ${{ github.event.inputs.Branch }}"
+          echo "Overall: ${{ github.event.inputs.Overall }}"
+          echo "FromCommitId: ${{ github.event.inputs.FromCommitId }}"
+          echo "ToCommitId: ${{ github.event.inputs.ToCommitId }}"
+
           if [ "${{ github.event.inputs.Overall }}" = "true" ]; then
-            echo "Running PMD on entire branch"
+            echo "Running PMD on entire branch..."
             TARGET_FILES=$(find force-app -type f -name "*.cls")
           else
-            echo "Running PMD on changed files"
-            git fetch origin main --depth=1
-            TARGET_FILES=$(git diff --name-only origin/main HEAD \
+            if [ -z "${{ github.event.inputs.FromCommitId }}" ] || [ -z "${{ github.event.inputs.ToCommitId }}" ]; then
+              echo "Error: FromCommitId and ToCommitId must be provided when Overall = false"
+              exit 1
+            fi
+            echo "Running PMD on changed files between commits..."
+            git fetch origin ${{ github.event.inputs.Branch }} --depth=100
+            TARGET_FILES=$(git diff --name-only ${{ github.event.inputs.FromCommitId }} ${{ github.event.inputs.ToCommitId }} \
               | grep '^force-app/.*\.cls$' || true)
           fi
 
@@ -66,13 +90,6 @@ jobs:
             --category "Design,Best Practices,Performance" \
             --outfile reports/scanner-report.json || true
 
-      - name: Upload Salesforce Scanner Report
-        if: steps.changes.outputs.files != ''
-        uses: actions/upload-artifact@v4
-        with:
-          name: scanner-report
-          path: reports/scanner-report.json
-
       - name: Run PMD Analysis
         if: steps.changes.outputs.files != ''
         run: |
@@ -84,7 +101,7 @@ jobs:
             -R pmd-apex-rules.xml \
             -f json \
             -r reports/pmd-report.json || true
-          
+
           # Zip PMD JSON report
           cd reports
           zip pmd-report.zip pmd-report.json
@@ -100,4 +117,3 @@ jobs:
       - name: Skip Analysis
         if: steps.changes.outputs.files == ''
         run: echo "No Apex class changes detected. Skipping analysis."
-
