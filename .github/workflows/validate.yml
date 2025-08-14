@@ -31,14 +31,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
-          repository: sahithiroy/salesforce-lwc-apex-projects
+          repository: ${{ github.workspace }}
           ref: ${{ github.event.inputs.Branch }}
 
       - name: Determine Target Files
         id: changes
         run: |
           echo "Run Label: ${{ github.event.inputs.Name }}"
-          echo "Repository: https://github.com/sahithiroy/salesforce-lwc-apex-projects"
+          echo "Repository: ${{ github.workspace }}"
           echo "Branch: ${{ github.event.inputs.Branch }}"
           echo "Overall: ${{ github.event.inputs.Overall }}"
           echo "FromCommitId: ${{ github.event.inputs.FromCommitId }}"
